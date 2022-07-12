@@ -1,9 +1,15 @@
 const express = require("express");
 const friendsController = require("../controllers/friends.controller");
 
-const friendRouter = express.Router();
+const friendsRouter = express.Router();
 
-friendRouter.get("/", friendsController.getFriends);
-friendRouter.post("/", friendsController.postFriends);
+friendsRouter.use((req, res, next) => {
+  console.log("ip address:", req.ip);
+  next();
+});
 
-module.exports = friendRouter;
+friendsRouter.get("/", friendsController.getFriends);
+friendsRouter.post("/", friendsController.postFriends);
+friendsRouter.get("/:friendId", friendsController.getFriend);
+
+module.exports = friendsRouter;
