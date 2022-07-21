@@ -6,9 +6,18 @@ const messageRouter = require("./routes/message.router");
 
 const app = express();
 
-app.use("/site", express.static(path.join(__dirname, "public")));
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.render("index", {
+    title: "caio henrique",
+    caption: "naruto"
+  })
+})
 app.use("/friends", friendsRouter);
 app.use("/messages", messageRouter);
 
